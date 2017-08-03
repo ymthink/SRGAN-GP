@@ -106,8 +106,10 @@ class Network(object):
     def batch_norm(self, input, scale=False):
         ''' batch normalization
         ArXiv 1502.03167v3 '''
+        with tf.variable_scope('batch_norm'+str(self.layer_num)):
+            output = tf.contrib.layers.batch_norm(input, scale=scale)
+            self.layer_num += 1
 
-        output = tf.contrib.layers.batch_norm(input, scale=scale)
         return output
 
     def dense(self, input, output_dim):
